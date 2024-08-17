@@ -85,4 +85,4 @@ def main(file_path: str):
 
 if __name__ == '__main__':
     main('extra.txt')
-    # main('cisco-umbrella-top1m.txt')
+    main('cisco-umbrella-top1m.txt')
