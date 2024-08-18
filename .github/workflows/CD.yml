@@ -5,8 +5,8 @@ on:
     branches: [ main ]
 
   schedule:
-  # build once every day
-  - cron: "0 * * * *"
+  # build once every day at 1am
+  - cron: "0 1 * * *"
 
   # allow manually trigger a build
   workflow_dispatch:
