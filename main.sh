@@ -11,8 +11,7 @@ fi
 
 ulimit -n
 
-# MAX_EXEC_TIME=21000 # in seconds
-MAX_EXEC_TIME=30 # in seconds
+MAX_EXEC_TIME=21000 # in seconds
 
 timeout -k 10 $MAX_EXEC_TIME ./process.py
 ret=$?
