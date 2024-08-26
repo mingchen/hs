@@ -58,6 +58,7 @@ jobs:
 
     - name: Check changes and clean cache
       run: |
+        gzip --best *.txt *.db *.log
         ls -lh
         git status
 
@@ -70,8 +71,8 @@ jobs:
       run: |
         git checkout --orphan release
 
-        git add *.db *.txt *.log
-        git commit -m "Update data files" *.db *.txt *.log
+        git add *.gz
+        git commit -m "Update data files" *.gz
 
     - name: Force push data branch changes
       uses: ad-m/github-push-action@master
