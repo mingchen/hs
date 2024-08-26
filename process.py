@@ -28,7 +28,12 @@ def check_redirect(host: str):
     try:
         response = requests.get(f'http://{host}/', allow_redirects=False, timeout=timeout, headers=headers)
         location = response.headers.get('location', '')
-        logging.info(f"job_id={job_id} url=http://{host}/ status_code={response.status_code} location={location}")
+
+        if not response.is_redirect:
+            logging.info(f"job_id={job_id} url=http://{host}/ status_code={response.status_code} location={location}")
+        else:
+            logging.debug(f"job_id={job_id} url=http://{host}/ status_code={response.status_code} location={location}")
+
         if response.is_redirect and location.lower().startswith('https://'):
             # print(f'{domain} redirects to HTTPS')
             with lock:
@@ -38,7 +43,12 @@ def check_redirect(host: str):
 
         response = requests.get(f'https://{host}/', allow_redirects=False, timeout=timeout, headers=headers)
         location = response.headers.get('location', '')
-        logging.info(f"job_id={job_id} url=https://{host}/ status_code={response.status_code} location={location}")
+
+        if response.is_redirect:
+            logging.info(f"job_id={job_id} url=https://{host}/ status_code={response.status_code} location={location}")
+        else:
+            logging.debug(f"job_id={job_id} url=https://{host}/ status_code={response.status_code} location={location}")
+
         if response.is_redirect and location.lower().startswith('http://'):
             logging.info(f"job_id={job_id} https://{host}/ redirects to HTTP, ignore.")
             with lock:

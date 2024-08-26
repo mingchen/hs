@@ -11,6 +11,11 @@ fi
 
 ulimit -n
 
-timeout -k 10 21000 ./process.py
+MAX_EXEC_TIME==21000 # in seconds
+
+timeout -k 10 $MAX_EXEC_TIME ./process.py
+ret=$?
+echo "timeout exit code: $ret"
 
 ./dbimport.py
+
