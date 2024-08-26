@@ -24,8 +24,9 @@ def check_redirect(host: str):
         logging.error(f'job_id={job_id} Empty host')
         return
 
+    timeout = 10
     try:
-        response = requests.get(f'http://{host}/', allow_redirects=False, timeout=15, headers=headers)
+        response = requests.get(f'http://{host}/', allow_redirects=False, timeout=timeout, headers=headers)
         location = response.headers.get('location', '')
         logging.info(f"job_id={job_id} url=http://{host}/ status_code={response.status_code} location={location}")
         if response.is_redirect and location.lower().startswith('https://'):
@@ -35,7 +36,7 @@ def check_redirect(host: str):
                     result_file.write(f"{host}\n")
             return
 
-        response = requests.get(f'https://{host}/', allow_redirects=False, timeout=30, headers=headers)
+        response = requests.get(f'https://{host}/', allow_redirects=False, timeout=timeout, headers=headers)
         location = response.headers.get('location', '')
         logging.info(f"job_id={job_id} url=https://{host}/ status_code={response.status_code} location={location}")
         if response.is_redirect and location.lower().startswith('http://'):
