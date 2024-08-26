@@ -9,5 +9,7 @@ if [ ! -f cisco-umbrella-top1m.txt ]; then
     dos2unix cisco-umbrella-top1m.txt
 fi
 
+ulimit -n unlimited
+
 ./process.py
 ./dbimport.py

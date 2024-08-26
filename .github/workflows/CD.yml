@@ -41,6 +41,7 @@ jobs:
         echo "PATH: $PATH"
         python3 --version
         pip3 --version
+        ulimit -a
 
     - name: Setup
       run: |

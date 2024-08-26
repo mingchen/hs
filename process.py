@@ -25,7 +25,7 @@ def check_redirect(host: str):
         return
 
     try:
-        response = requests.get(f'http://{host}/', allow_redirects=False, timeout=30, headers=headers)
+        response = requests.get(f'http://{host}/', allow_redirects=False, timeout=15, headers=headers)
         location = response.headers.get('location', '')
         logging.info(f"job_id={job_id} url=http://{host}/ status_code={response.status_code} location={location}")
         if response.is_redirect and location.lower().startswith('https://'):
