@@ -89,7 +89,7 @@ def main(file_path: str):
     with open(file_path, 'r') as file:
         domains = [line.strip() for line in file]
 
-    max_workers = int(os.environ.get('THREADS', '1000'))
+    max_workers = int(os.environ.get('THREADS', '1500'))
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix="worker") as executor:
         executor.map(check_redirect, domains)
 
